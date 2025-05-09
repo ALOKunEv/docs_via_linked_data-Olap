@@ -1,17 +1,20 @@
 #include <iostream>
 #include "SemanticNetwork.h"
 #include "OLAPCube.h"
+using namespace std;
 
 int main() {
-    std::cout << "Программа запущена..." << std::endl;
+    setlocale(LC_ALL, "Russian");
+    
+    cout << "Программа запущена..." << endl;
     
     // Создаем семантическую сеть
     SemanticNetwork network;
-    std::cout << "Семантическая сеть создана" << std::endl;
+    cout << "Семантическая сеть создана" << endl;
     
     // Создаем OLAP-куб
     OLAPCube cube;
-    std::cout << "OLAP-куб создан" << std::endl;
+    cout << "OLAP-куб создан" << endl;
     
     // Добавляем измерения в OLAP-куб
     Dimension authorDim{"author", {}};
@@ -21,7 +24,7 @@ int main() {
     cube.addDimension(authorDim);
     cube.addDimension(topicDim);
     cube.addDimension(dateDim);
-    std::cout << "Измерения добавлены в куб" << std::endl;
+    cout << "Измерения добавлены в куб" << endl;
     
     // Создаем и добавляем документы
     Document doc1{1, "Иванов", "2023-01-01", "AI", "Содержание документа 1"};
@@ -43,13 +46,13 @@ int main() {
     
     // Пример восстановления атрибута
     int targetDocId = 1;
-    std::string attribute = "topic";
+    string attribute = "topic";
     
     // Получаем возможные значения атрибута
     auto possibleValues = cube.getPossibleValues(attribute);
     
     // Вычисляем итоговые оценки для каждого возможного значения
-    std::map<std::string, double> finalScores;
+    map<string, double> finalScores;
     for (const auto& value : possibleValues) {
         double graphScore = network.calculateGraphScore(targetDocId, attribute, value);
         double olapScore = cube.calculateOLAPScore(attribute, value);
@@ -59,19 +62,19 @@ int main() {
     }
     
     // Находим значение с максимальной оценкой
-    std::string bestValue;
+    string bestValue;
     double maxScore = -1.0;
     for (const auto& pair : finalScores) {
-        std::cout << "Значение: " << pair.first << ", Оценка: " << pair.second << std::endl;
+        cout << "Значение: " << pair.first << ", Оценка: " << pair.second << endl;
         if (pair.second > maxScore) {
             maxScore = pair.second;
             bestValue = pair.first;
         }
     }
     
-    std::cout << "\nРезультаты:" << std::endl;
-    std::cout << "Восстановленное значение атрибута '" << attribute << "': " << bestValue << std::endl;
-    std::cout << "Оценка достоверности: " << maxScore << std::endl;
+    cout << "\nРезультаты:" << endl;
+    cout << "Восстановленное значение атрибута '" << attribute << "': " << bestValue << endl;
+    cout << "Оценка достоверности: " << maxScore << endl;
     
     return 0;
 } 
