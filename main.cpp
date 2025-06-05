@@ -29,9 +29,10 @@ int main() {
     cout << "Измерения добавлены в куб" << endl;
     
     // Создаем и добавляем документы
-    Document doc1{1, "Иванов", "2023-01-01", "", "Содержание документа 1"};
+    Document doc1{1, "Иванов", "2023-01-01", "Data Science", "Содержание документа 1"};
     Document doc2{2, "Петров", "2023-01-02", "Data Science", "Содержание документа 2"};
     Document doc3{3, "Иванов", "2023-01-03", "AI", "Содержание документа 3"};
+    
     
     network.addDocument(doc1);
     network.addDocument(doc2);
@@ -74,7 +75,7 @@ int main() {
         }
     }
     
-    cout << "\nРезультаты:" << endl;
+    cout << "\n Результаты: " << endl;
     cout << "Восстановленное значение атрибута '" << attribute << "': " << bestValue << endl;
     cout << "Оценка достоверности: " << maxScore << endl;
     
